@@ -6,8 +6,10 @@
 #include "parser/scanner.h"
 #include "parser/scansup.h"
 
+#include "nodes/print.h" 
 #include <unistd.h>
 #include <fcntl.h>
+#include <stdio.h>
 
 PgQueryInternalParsetreeAndError pg_query_raw_parse(const char* input)
 {
@@ -101,6 +103,8 @@ PgQueryParseResult pg_query_parse(const char* input)
 		char *tree_json;
 
 		tree_json = pg_query_nodes_to_json(parsetree_and_error.tree);
+
+                pprint(parsetree_and_error.tree);
 
 		result.parse_tree = strdup(tree_json);
 		pfree(tree_json);
